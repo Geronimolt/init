@@ -7,7 +7,7 @@ Install instructions for four skills/plugins used in a Hermes Agent setup. All f
 | Name | Type | Upstream | Pin |
 |---|---|---|---|
 | attention-kind | skill | https://github.com/alexgreensh/attention-span (`skills/attention-kind/SKILL.md`) | `main` |
-| Clever | skill | https://github.com/Geronimolt/Clever (`skills/clever/SKILL.md`) | `master` |
+| clever | skill | https://github.com/Geronimolt/Clever (`skills/clever/SKILL.md`) | `master` |
 | ponytail | plugin, 6 skills | https://github.com/DietrichGebert/ponytail | `c982cd411abb53323c4baa1baa3c2f020b8d0b08` |
 | superpowers | plugin, 15 skills | https://github.com/obra/superpowers | `22f0b463e7a5e579904dd6211a520321035526f7` |
 
@@ -25,10 +25,10 @@ hermes skills install https://raw.githubusercontent.com/alexgreensh/attention-sp
 hermes skills install https://raw.githubusercontent.com/Geronimolt/Clever/master/skills/clever/SKILL.md --yes
 
 # Auto-load at session start
-hermes config set skills.auto_load '["attention-kind","Clever","ponytail:ponytail","superpowers:using-superpowers"]'
+hermes config set skills.auto_load '["attention-kind","clever","superpowers:using-superpowers"]'
 ```
 
-Verify: `hermes config get skills.auto_load` lists all four. Plugin skills are namespaced (`ponytail:`, `superpowers:`) and must be written that way in `auto_load`.
+Verify: `hermes config get skills.auto_load` lists all three. Plugin skills are namespaced (`superpowers:`) and must be written that way in `auto_load`. Ponytail is installed but not auto-loaded; its plugin injects its instructions every response on its own.
 
 `obra/superpowers` is not in the Hermes catalog. The installer reports a **CAUTION** scan verdict (mostly `rm -rf` examples in docs, `printenv` and path traversal patterns in tests). Review it before installing; `--force` is the only way past a blocked verdict and should be a deliberate choice.
 
@@ -59,7 +59,7 @@ Name collisions: superpowers ships `systematic-debugging`, `test-driven-developm
 For agents without a config file, put the load instruction in `AGENTS.md`, `CLAUDE.md`, or the equivalent project instruction file:
 
 ```text
-Always load these skills at session start: attention-kind, Clever, ponytail:ponytail, superpowers:using-superpowers.
+Always load these skills at session start: attention-kind, clever, superpowers:using-superpowers.
 ```
 
 The `owner:skill` spelling is Hermes-specific; for other agents use the directory names (`attention-kind`, `clever`, `ponytail-*`, and the superpowers entry point `using-superpowers`).
